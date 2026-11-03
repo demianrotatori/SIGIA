@@ -97,6 +97,20 @@ El agente debe evaluar nuevamente el conjunto completo de datos, no solamente la
 
 Debe evitar repetir preguntas que ya fueron respondidas de forma suficiente.
 
+### Regla de escalamiento ante ambigüedad persistente
+
+Si el vecino responde las preguntas de aclaración y la información continúa siendo ambigua o insuficiente para interpretar el problema con seguridad, el agente debe detener las preguntas repetitivas y recomendar la intervención del personal de revisión.
+
+En ese caso, SIGIA debe conservar y presentar:
+
+- La información original del reporte.
+- Las preguntas de aclaración realizadas.
+- Las respuestas aportadas por el vecino.
+- Los datos que siguen siendo dudosos o faltantes.
+- El motivo por el que el agente no pudo interpretar o clasificar el caso con suficiente confianza.
+
+El agente no debe forzar una clasificación para completar el proceso. La revisión humana determinará cómo continuar y si necesita solicitar información adicional por otro medio.
+
 ### Etapa 5. Clasificación preliminar
 
 Cuando la información disponible permite interpretar el problema, el agente propone una categoría preliminar.
