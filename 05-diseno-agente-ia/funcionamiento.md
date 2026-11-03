@@ -244,7 +244,49 @@ El funcionamiento podrá evaluarse con casos ficticios que incluyan:
 
 Se observará si el agente solicita los datos adecuados, evita inventar información, distingue sugerencias de hechos y deriva a revisión humana los casos que no puede interpretar con suficiente claridad.
 
-## 13. Síntesis
+## 13. Modalidad de interacción con el vecino
+
+El prototipo utilizará un **modelo mixto** para recibir y completar reportes.
+
+### 13.1. Formulario inicial
+
+El vecino comienza completando un formulario con los datos principales:
+
+- Tipo de servicio: alumbrado público.
+- Dirección o ubicación.
+- Barrio.
+- Descripción del problema.
+- Información complementaria opcional.
+- Fotografía opcional.
+
+El formulario permite que la información inicial se presente de manera ordenada y que SIGIA registre los campos de forma estructurada.
+
+### 13.2. Intervención conversacional del agente
+
+Una vez enviado el formulario, SIGIA solicita al agente que analice los datos.
+
+Si el agente detecta información faltante, ambigua o contradictoria, SIGIA presenta preguntas concretas para que el vecino pueda aclararla. Las preguntas deben referirse a los datos que realmente hacen falta y evitar repetir información que ya fue proporcionada.
+
+Por ejemplo, si el vecino informa una calle pero no indica altura ni barrio, el agente puede proponer preguntas para completar esos datos.
+
+### 13.3. Nueva validación
+
+Cuando el vecino responde, SIGIA actualiza el registro y vuelve a solicitar el análisis del conjunto completo de información.
+
+El proceso se repite hasta que los datos estén suficientemente claros para preparar el reporte para revisión, o hasta que el agente determine que persiste una ambigüedad que requiere intervención humana.
+
+### 13.4. Motivo de la elección
+
+El modelo mixto combina la estructura de un formulario con la flexibilidad de una conversación:
+
+- El formulario ordena la información y facilita la carga.
+- El agente permite aclarar situaciones que un formulario fijo no siempre puede anticipar.
+- El vecino no necesita responder preguntas que no sean pertinentes para su reporte.
+- SIGIA conserva los datos estructurados y el historial de las aclaraciones.
+
+La conversación no reemplaza el formulario ni permite que el agente invente datos. Las respuestas del vecino se incorporan al registro como información aportada por él.
+
+## 14. Síntesis
 
 El agente de IA de SIGIA funciona como asistente para el análisis inicial de las incidencias. Comprende las descripciones, identifica faltantes, solicita aclaraciones, sugiere categorías y organiza la información para facilitar la revisión humana.
 
