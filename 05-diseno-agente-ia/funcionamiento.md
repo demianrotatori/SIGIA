@@ -119,6 +119,12 @@ La propuesta debe incluir una explicación breve y un indicador cualitativo de c
 
 Si la descripción continúa siendo ambigua, el agente debe señalar que no puede clasificarla con suficiente confianza y recomendar revisión humana.
 
+### Regla de confirmación humana de la categoría
+
+La categoría propuesta por el agente es una sugerencia preliminar. SIGIA debe identificarla como "pendiente de confirmación" y no registrarla como clasificación definitiva hasta que el personal de revisión la evalúe.
+
+El personal de revisión puede confirmar la categoría, modificarla, solicitar más información o dejar el caso pendiente de evaluación. El nivel cualitativo de confianza informado por la IA sirve como orientación, pero no reemplaza la revisión humana.
+
 ### Etapa 6. Detección de posibles duplicados
 
 Si SIGIA proporciona incidencias existentes, el agente puede señalar coincidencias posibles considerando la ubicación y el tipo de problema.
