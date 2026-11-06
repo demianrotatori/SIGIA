@@ -63,6 +63,20 @@ El sistema incorpora reglas explícitas para mantener la homeostasis y el correc
 - **Control de Urgencia:** Si se detectan palabras clave de peligro, se ignora el flujo estándar y se activa la notificación prioritaria.
 - **Control Humano en el Loop (Human-in-the-loop):** Ninguna orden de trabajo se emite sin la aprobación final del operador, garantizando la supervisión.
 
+### 3.5 Perturbaciones y Preguntas de Investigación (Clase 12)
+
+**Perturbaciones del entorno (factores externos que afectan al sistema):**
+1. Saturación del sistema municipal en días de tormentas (aumento abrupto e inesperado de entradas).
+2. Fallas en la conexión a internet del ciudadano (pérdida o interrupción del flujo de entrada).
+3. Cambios en la normativa municipal de tiempos de respuesta (modificación externa de las reglas de control).
+
+**5 Preguntas de investigación pendientes (antes del diseño final del agente):**
+1. ¿Qué porcentaje de los reclamos actuales llega sin dirección válida o datos incompletos?
+2. ¿Cuál es el tiempo promedio de respuesta humana actual para una urgencia alta?
+3. ¿Qué canales de entrada (WhatsApp, web, teléfono) generan más datos incompletos?
+4. ¿Cómo afecta la estacionalidad (ej. tormentas de verano) a la carga y rendimiento del sistema?
+5. ¿Qué nivel de precisión en la clasificación automática es aceptable para la municipalidad antes de requerir intervención humana obligatoria?
+
 ---
 
 ## 4. Relación con el Modelado
