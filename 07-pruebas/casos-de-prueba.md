@@ -1,74 +1,28 @@
-# Casos de Prueba y Mecanismos de Control
+# 2 de octubre · Secuencia, reglas y control
 
-Este documento presenta las pruebas realizadas sobre el sistema SIGIA, utilizando datos ficticios para validar el comportamiento del agente frente a diferentes escenarios.
+En esta sección se documentan los recorridos, las reglas de negocio y las pruebas de validación del caso de uso principal: **"Ingresar Reclamo de Alumbrado"**.
 
-## Reglas de Negocio (Mecanismos de Control)
+## 1. Reglas de Negocio
+1. **Si** el reclamo contiene una dirección válida y no presenta palabras de peligro, **el sistema debe** clasificarlo como prioridad media y derivarlo a la cola de validación estándar.
+2. **Si** falta la dirección o la ubicación, **el sistema debe** detener la derivación y solicitar al ciudadano que complete el dato faltante antes de continuar.
+3. **Si** el texto contiene indicadores de riesgo inminente (ej: "cable caído", "chispas"), **el sistema debe** ignorar el flujo estándar, clasificarlo como prioridad alta y notificar inmediatamente al operador de guardia.
 
-Las siguientes reglas gobiernan el comportamiento del agente y están modeladas en el **Diagrama de Secuencia**:
+## 2. Tabla de Pruebas (Consigna 2 de octubre)
 
-### Regla 1: Datos Obligatorios
-Si el reclamo no contiene una dirección o calle, el agente NO deriva. Responde solicitando el dato faltante.
+A continuación, se detallan las tres pruebas requeridas (normal, falta de información y contradicción/riesgo), utilizando datos ficticios para simular el comportamiento del agente.
 
-### Regla 2: Urgencia Alta
-Si el texto contiene "cable caído", "chispas" o "peligro", el agente etiqueta el reclamo como **PRIORIDAD ALTA** y notifica inmediatamente al operador humano.
+| Prueba | Datos ficticios (Entrada) | Resultado esperado | Criterio para aceptar | Resultado observado o simulado | ¿Cumplió? |
+| :--- | :--- | :--- | :--- | :--- | :---: |
+| **Normal** | "No hay luz en calle 123 entre 45 y 46 desde ayer." | El sistema clasifica como "Prioridad Media" y deriva a la cola de validación estándar. | El sistema no solicita más datos y genera la ficha para el operador sin demoras. | Se generó la ficha #2026-1001 con clasificación "Media" y se mostró mensaje de registro al ciudadano. | **Sí** |
+| **Falta información** | "Hola, hay una lámpara rota en mi barrio." | El sistema detecta que no hay dirección válida y detiene el flujo. | El sistema no deriva al operador y responde pidiendo la calle y altura exacta. | El sistema respondió: "Por favor, indicá la calle y la altura para procesar tu reclamo". No se generó ficha. | **Sí** |
+| **Contradicción / Riesgo** | "Es solo una chispa pequeña, pero el cable está en el medio de la vereda y pasa gente." | El sistema prioriza las palabras de riesgo ("chispa", "cable en la vereda") sobre la minimización del usuario ("es solo una"). | El sistema ignora la contradicción del usuario, activa la alerta de prioridad alta y notifica al operador de guardia. | Se activó la etiqueta "[ALERTA PRIORITARIA]", se notificó al panel del operador y se advirtió al ciudadano que se aleje. | **Sí** |
 
-### Regla 3: Validación Humana Obligatoria
-Toda derivación requiere confirmación del operador antes de generar una orden de trabajo final. El agente solo pre-clasifica, nunca decide por sí solo.
-
----
-
-## Casos de Prueba
-
-### Prueba T1: Camino Feliz - Reclamo estándar
-| Campo | Valor |
-|-------|-------|
-| **Entrada** | "No hay luz en la calle 123 entre 45 y 46" |
-| **Proceso** | El agente detecta dirección válida, clasifica como "Lámpara apagada", urgencia Media |
-| **Salida esperada** | Ficha pre-clasificada enviada al operador para validación |
-| **Resultado** | ✅ Éxito |
-
-### Prueba T2: Urgencia Alta (Escenario del Diagrama de Secuencia)
-| Campo | Valor |
-|-------|-------|
-| **Entrada** | "Cable caído en Av. Independencia 500, haciendo chispas" |
-| **Proceso** | El agente detecta palabras clave de peligro (`evaluarReglas()`), clasifica como Urgencia ALTA |
-| **Salida esperada** | Notificación inmediata al operador + mensaje al ciudadano: "🚨 Prioridad Alta" |
-| **Resultado** | ✅ Éxito (ver Diagrama de Secuencia) |
-
-### Prueba T3: Datos Faltantes
-| Campo | Valor |
-|-------|-------|
-| **Entrada** | "Hay una lámpara rota" |
-| **Proceso** | El agente detecta falta de dirección, aplica Regla 1 |
-| **Salida esperada** | "Por favor, indicá la calle y la altura para procesar tu reclamo" |
-| **Resultado** | ✅ Éxito |
-
-### Prueba T4: Fuera de Alcance
-| Campo | Valor |
-|-------|-------|
-| **Entrada** | "¿A qué hora cierra la municipalidad?" |
-| **Proceso** | El agente detecta que no es un reclamo de alumbrado |
-| **Salida esperada** | "Este canal es solo para reclamos de alumbrado. Para otras consultas, llame al 147" |
-| **Resultado** | ✅ Éxito |
+## 3. Corrección y Ajuste (Si fue necesaria)
+Durante la simulación de la **Prueba 3 (Contradicción/Riesgo)**, inicialmente el sistema dudaba entre "Prioridad Media" (por "chispa pequeña") y "Prioridad Alta". 
+- **Ajuste realizado:** Se modificó la Regla N.º 3 para que *cualquier* mención de "cable" junto a "vereda" o "chispas" anule automáticamente otras clasificaciones y fuerce la alerta alta. 
+- **Nueva prueba:** Se volvió a ejecutar la Prueba 3 con el mismo dato ficticio y el sistema ahora deriva directamente a prioridad alta sin dudar, cumpliendo el criterio de aceptación.
 
 ---
 
-## Coherencia con los Diagramas
-
-Las pruebas realizadas son **consistentes** con los diagramas modelados:
-
-- **T2** corresponde exactamente al escenario del **Diagrama de Secuencia** (urgencia alta con cable caído).
-- **T1 y T3** validan la relación `<<include>>` del **Diagrama de Casos de Uso** (validación obligatoria de datos).
-- **Todas las pruebas** respetan la frontera del sistema mostrada en el **Diagrama de Contexto** (el agente nunca toma decisiones finales sin el operador humano).
-
----
-
-## Conclusión de las Pruebas
-
-El sistema SIGIA cumple con los mecanismos de control definidos:
-- ✅ Detecta correctamente las urgencias altas
-- ✅ Solicita datos faltantes antes de derivar
-- ✅ Mantiene al operador humano en el loop de decisión
-- ✅ Respeta la frontera del sistema (no toma decisiones administrativas)
-
-El prototipo de simulación demuestra que el modelo sistémico es viable y está bien fundamentado en la Teoría General de Sistemas.
+## 4. Coherencia con el Modelado
+Estas pruebas validan directamente el **Diagrama de Secuencia** de la carpeta `04-modelado`. El "Resultado observado" confirma que el mecanismo de control (`evaluarReglas()`) funciona como se dibujó: el sistema evalúa la entrada antes de emitir la salida, garantizando que las reglas de negocio se respeten en cada escenario.
