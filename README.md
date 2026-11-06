@@ -47,12 +47,12 @@ No se presupone acceso a sistemas internos ni se presentarán como reales proced
 
 - [x] Repositorio creado.
 - [x] Tema y alcance inicial definidos.
-- [ ] Investigación documental de la organización.
-- [ ] Análisis del proceso actual.
-- [ ] Fundamentación teórica.
-- [ ] Modelo sistémico y diagramas.
-- [ ] Diseño y prototipo.
-- [ ] Pruebas y documentación final.
+- [x] Investigación documental de la organización.
+- [x] Análisis del proceso actual.
+- [x] Fundamentación teórica.
+- [x] Modelo sistémico y diagramas.
+- [x] Diseño y prototipo.
+- [x] Pruebas y documentación final.
 
 ## Fuentes institucionales iniciales
 
