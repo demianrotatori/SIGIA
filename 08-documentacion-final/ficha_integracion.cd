@@ -1,0 +1,18 @@
+# Ficha de Integración Final (9 de octubre)
+
+Este documento sintetiza el estado actual del Proyecto Integrador SIGIA, alineado con los requisitos de cierre de la materia Sistemas y Organización (ISFT N° 151).
+
+## 1. Síntesis del Proyecto
+- **Mi agente ayuda a:** Clasificar automáticamente la urgencia de los reclamos de alumbrado público, detectando datos faltantes y priorizando emergencias (ej: cables caídos) para optimizar el tiempo del personal municipal.
+- **El caso de uso que revisé en profundidad es:** "Ingresar Reclamo de Alumbrado" con derivación condicional por urgencia alta.
+- **La prueba mostró que:** El sistema detecta correctamente las palabras clave de peligro, ejecuta el mecanismo de control interno (`evaluarReglas()`) y notifica simultáneamente al operador y al ciudadano, cumpliendo la Regla de Negocio N.º 2.
+- **La mejora que hice fue:** Unificar la documentación del análisis sistémico en un solo archivo coherente y refinar el Diagrama de Secuencia para visualizar explícitamente el bucle de evaluación de reglas (mecanismo de control) antes de la derivación.
+
+
+## 2. Enlaces de Interés
+- **Repositorio Principal:** [https://github.com/demianrotatori/SIGIA](https://github.com/demianrotatori/SIGIA)
+- **Diagramas:** [Carpeta 04-modelado](https://github.com/demianrotatori/SIGIA/tree/main/04-modelado)
+- **Casos de Prueba:** [Carpeta 07-pruebas](https://github.com/demianrotatori/SIGIA/tree/main/07-pruebas)
+
+## 3. Declaración de Autoría
+Todo el contenido de este repositorio es producto del trabajo académico del estudiante. Las simulaciones y datos utilizados son ficticios, y el prototipo no se conecta a sistemas reales de la Municipalidad de General Pueyrredon, respetando los criterios de investigación establecidos en la consigna.
